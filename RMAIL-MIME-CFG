@@ -5,14 +5,19 @@
 
 (defvar default-load-path load-path)
 
-(when (boundp 'LISPDIR)
-  (add-to-list 'default-load-path LISPDIR)
-  (add-to-list 'load-path LISPDIR)
-  (add-to-list 'load-path (expand-file-name "apel" LISPDIR))
-  )
+(cond ((boundp 'LISPDIR)
+       (add-to-list 'default-load-path LISPDIR)
+       (add-to-list 'load-path LISPDIR)
+       (add-to-list 'load-path (expand-file-name "apel" LISPDIR))
+       )
+      (t
+       (add-to-list 'load-path
+		    (expand-file-name "../../site-lisp/apel" data-directory))
+       ))
 
 (require 'install)
 
+(add-path "mel")
 (add-path "semi")
 
 (add-to-list 'load-path (expand-file-name "." data-directory))
