@@ -1,7 +1,8 @@
 ;;; -*-Emacs-Lisp-*-
-;;;
-;;; $Id$
-;;;
+
+;; RMAIL-MIME-CFG: installation setting about RMAIL-MIME.
+
+;;; Code:
 
 (defvar default-load-path load-path)
 
@@ -17,7 +18,7 @@
 
 (require 'install)
 
-(add-path "mel")
+(add-path "flim")
 (add-path "semi")
 
 (add-to-list 'load-path (expand-file-name "." data-directory))
