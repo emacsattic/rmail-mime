@@ -2,12 +2,16 @@
 
   It is available from
 
-    ftp://ftp.jaist.ac.jp/pub/GNU/elisp/semi/		(Japan)
+    ftp://ftp.m17n.org/pub/mule/semi/rmail-mime-1.13
+
+or
+
+    ftp://ftp.etl.go.jp/pub/mule/semi/rmail-mime-1.13
 
 --[[message/external-body;
 	access-type=anon-ftp;
-	site="ftp.jaist.ac.jp";
-	directory="/pub/GNU/elisp/semi";
+	site="ftp.m17n.org";
+	directory="/pub/mule/semi/rmail-mime-1.13";
 	name="rmail-mime-VERSION.tar.gz";
 	mode=image]]
 Content-Type: application/octet-stream;
