@@ -76,8 +76,8 @@
   (let ((abuf (current-buffer))
 	(buf-name (concat "*View-" (buffer-name) "*"))
 	buf win)
-    (if (and mime::article/preview-buffer
-	     (setq buf (get-buffer mime::article/preview-buffer))
+    (if (and mime-view-buffer
+	     (setq buf (get-buffer mime-view-buffer))
 	     )
 	(if (setq win (get-buffer-window buf))
 	    (progn
@@ -114,7 +114,7 @@
   (if (eq major-mode 'mime-view-mode)
       (progn
 	(switch-to-buffer mime::preview/article-buffer)
-	(bury-buffer mime::article/preview-buffer)
+	(bury-buffer mime-view-buffer)
 	))
   (let (rmail-enable-mime)
     (rmail-quit)
