@@ -2,7 +2,7 @@
 by MORIOKA Tomohiko <morioka@jaist.ac.jp>
 $Id$
 
-What's rmail-mime?
+Introduction
 ------------
 
   rmail-mime is a module to provide MIME feature using SEMI required
