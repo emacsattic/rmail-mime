@@ -1,3 +1,7 @@
+2004-09-27  Katsumi Yamaoka  <yamaoka@jpl.org>
+
+	* README.en (CVS based development): Replace pserver with ssh.
+
 2000-01-07  Taiji Can         <Taiji.Can@atesoft.advantest.co.jp>
 
 	* RMAIL-MIME-MK (install-rmail-mime-package): Fix typo.
