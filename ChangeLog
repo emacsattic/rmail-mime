@@ -1,3 +1,25 @@
+1998-10-12  Katsumi Yamaoka   <yamaoka@jpl.org>
+
+	* README.en: Add explanations about `LISPDIR', and
+	`VERSION_SPECIFIC_LISPDIR'.
+
+	* Makefile (package): New target.
+	(install-package): Likewise.
+ 	(install): Add new arg `LISPDIR', `PACKAGEDIR' and
+	`VERSION_SPECIFIC_LISPDIR'.
+	(elc): Add new arg `LISPDIR' and `VERSION_SPECIFIC_LISPDIR'.
+
+	* RMAIL-MIME-MK (install-rmail-mime-package): New function.
+	(compile-rmail-mime-package): Likewise.
+ 	(config-rmail-mime-package): Likewise.
+ 	(config-rmail-mime): Refer to `PREFIX', `LISPDIR' and
+	`VERSION_SPECIFIC_LISPDIR'.
+
+	* RMAIL-MIME-CFG: Add the requirement for `custom'.
+	(PACKAGEDIR): New variable.
+	(VERSION_SPECIFIC_LISPDIR): Likewise.
+
+
 1998-06-18  MORIOKA Tomohiko  <morioka@jaist.ac.jp>
 
 	* RMAIL-MIME: Version 1.6.1 was released.

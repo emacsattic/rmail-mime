@@ -6,17 +6,28 @@
 
 (defvar default-load-path load-path)
 
-(cond ((boundp 'LISPDIR)
-       (add-to-list 'default-load-path LISPDIR)
-       (add-to-list 'load-path LISPDIR)
-       (add-to-list 'load-path (expand-file-name "apel" LISPDIR))
-       )
-      (t
-       (add-to-list 'load-path
-		    (expand-file-name "../../site-lisp/apel" data-directory))
-       ))
+(add-to-list 'load-path
+	     (expand-file-name "../../site-lisp/apel" data-directory))
+(add-to-list 'load-path
+	     (expand-file-name "." data-directory))
 
-(require 'install)
+(if (boundp 'LISPDIR)
+    (progn
+      (add-to-list 'default-load-path LISPDIR)
+      (add-to-list 'load-path LISPDIR)
+      (add-to-list 'load-path (expand-file-name "apel" LISPDIR))
+      ))
+
+(defvar VERSION_SPECIFIC_LISPDIR nil)
+
+(if VERSION_SPECIFIC_LISPDIR
+    (add-to-list 'load-path VERSION_SPECIFIC_LISPDIR))
+
+(condition-case nil
+    (require 'install)
+  (error (error "Please install APEL 8.2 or later.")))
+
+(add-latest-path "custom")
 
 (add-path "flim")
 (add-path "semi")
@@ -46,5 +57,19 @@
 ;; (setq install-default-elisp-directory "~/lib/emacs/lisp")
 
 (setq RMAIL_MIME_DIR (expand-file-name RMAIL_MIME_PREFIX LISPDIR))
+
+(defvar PACKAGEDIR
+  (if (boundp 'early-packages)
+      (let ((dirs (append (if early-package-load-path
+			      early-packages)
+			  (if late-package-load-path
+			      late-packages)
+			  (if last-package-load-path
+			      last-packages)))
+	    dir)
+	(while (not (file-exists-p
+		     (setq dir (car dirs))))
+	  (setq dirs (cdr dirs)))
+	dir)))
 
 ;;; RMAIL-MIME-CFG ends here

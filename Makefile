@@ -7,19 +7,32 @@ VERSION = 1.6.1
 TAR	= tar
 RM	= /bin/rm -f
 EMACS	= emacs
+XEMACS	= xemacs
 FLAGS   = -batch -q -no-site-file -l RMAIL-MIME-MK
 
-PREFIX =
+PREFIX = NONE
+LISPDIR = NONE
+PACKAGEDIR = NONE
+VERSION_SPECIFIC_LISPDIR = NONE
 
 FILES =	README.en Makefile RMAIL-MIME-MK RMAIL-MIME-CFG RMAIL-MIME-ELS \
 	*.el ChangeLog
 
 
 elc:
-	$(EMACS) $(FLAGS) -f compile-rmail-mime
+	$(EMACS) $(FLAGS) -f compile-rmail-mime $(PREFIX) $(LISPDIR) \
+		$(VERSION_SPECIFIC_LISPDIR)
 
 install:	elc
-	$(EMACS) $(FLAGS) -f install-rmail-mime $(PREFIX)
+	$(EMACS) $(FLAGS) -f install-rmail-mime $(PREFIX) $(LISPDIR) \
+		$(VERSION_SPECIFIC_LISPDIR)
+
+
+package:
+	$(XEMACS) $(FLAGS) -f compile-rmail-mime-package $(PACKAGEDIR)
+
+install-package:	package
+	$(XEMACS) $(FLAGS) -f install-rmail-mime-package $(PACKAGEDIR)
 
 
 clean:
