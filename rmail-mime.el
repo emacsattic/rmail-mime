@@ -163,12 +163,48 @@
 		(rmail-summary)
 		))))
 
+(cond
+ ((featurep 'xemacs)
+  ;; for XEmacs
+
+(defun rmail-mime-execute-original-command ()
+  (interactive)
+  (let* ((seq (vector last-command-event))
+	 (ret (lookup-key rmail-mode-map seq))
+	 )
+    (if (and ret
+	     (progn
+	       (while (keymapp (setq ret (lookup-key rmail-mode-map seq)))
+		 (setq seq (vconcat seq (vector (next-event))))
+		 )
+	       (commandp ret)
+	       ))
+	(let ((pwin (selected-window))
+	      (pbuf (current-buffer))
+	      )
+	  (switch-to-buffer mime-raw-buffer)
+	  (call-interactively ret)
+	  (if (window-live-p pwin)
+	      (set-window-buffer pwin pbuf)
+	    ))
+      (setq ret (or (lookup-key global-map seq)
+		    (and (setq ret (lookup-key function-key-map seq))
+			 (lookup-key global-map ret))))
+      (while (keymapp ret)
+	(setq ret (lookup-key ret (vector (next-event))))
+	)
+      (and (commandp ret)
+	   (call-interactively ret))
+      )))
+)
+(t
+ ;; for Emacs
+
 (defun rmail-mime-execute-original-command ()
   (interactive)
   (let* ((seq (if (and (symbolp last-command-event)
 		       (eq (get last-command-event 'ascii-character)
-			   meta-prefix-char)
-		       )
+			   meta-prefix-char))
 		  (vector meta-prefix-char (read-event))
 		(vector last-command-event)
 		))
@@ -203,8 +239,9 @@
 	     )
 	)
       )))
+))
 
-  
+
 ;;; @ end
 ;;;
 
