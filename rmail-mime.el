@@ -45,34 +45,35 @@
 ;;; @ for mule and MIME
 ;;;
 
-(defun rmail-show-all-header ()
-  (rmail-maybe-set-message-counters)
-  (narrow-to-region (rmail-msgbeg rmail-current-message) (point-max))
-  (let ((buffer-read-only nil))
-    (goto-char (point-min))
-    (forward-line 1)
-    (if (= (following-char) ?1)
-	(progn
-	  (delete-char 1)
-	  (insert ?0)
-	  (forward-line 1)
-	  (let ((case-fold-search t))
-	    (while (looking-at "Summary-Line:\\|Mail-From:")
-	      (forward-line 1)))
-	  (insert "*** EOOH ***\n")
-	  (forward-char -1)
-	  (search-forward "\n*** EOOH ***\n")
-	  (forward-line -1)
-	  (let ((temp (point)))
-	    (and (search-forward "\n\n" nil t)
-		 (delete-region temp (point))))
-	  (goto-char (point-min))
-	  (search-forward "\n*** EOOH ***\n")
-	  (narrow-to-region (point) (point-max)))
-      )))
+;; (defun rmail-show-all-header ()
+;;   (rmail-maybe-set-message-counters)
+;;   (narrow-to-region (rmail-msgbeg rmail-current-message) (point-max))
+;;   (let ((buffer-read-only nil))
+;;     (goto-char (point-min))
+;;     (forward-line 1)
+;;     (if (= (following-char) ?1)
+;;         (progn
+;;           (delete-char 1)
+;;           (insert ?0)
+;;           (forward-line 1)
+;;           (let ((case-fold-search t))
+;;             (while (looking-at "Summary-Line:\\|Mail-From:")
+;;               (forward-line 1)))
+;;           (insert "*** EOOH ***\n")
+;;           (forward-char -1)
+;;           (search-forward "\n*** EOOH ***\n")
+;;           (forward-line -1)
+;;           (let ((temp (point)))
+;;             (and (search-forward "\n\n" nil t)
+;;                  (delete-region temp (point))))
+;;           (goto-char (point-min))
+;;           (search-forward "\n*** EOOH ***\n")
+;;           (narrow-to-region (point) (point-max)))
+;;       )))
 
 (defun rmail-show-mime-message ()
-  (rmail-show-all-header)
+  ;; (rmail-show-all-header)
+  (rmail-toggle-header 0)
   (let ((abuf (current-buffer))
 	(buf-name (concat "*View-" (buffer-name) "*"))
 	buf win)
@@ -241,6 +242,100 @@
 	)
       )))
 ))
+
+(eval-after-load "rmailsum"
+  '(defun rmail-new-summary (description redo-form function &rest args)
+     "Create a summary of selected messages.
+DESCRIPTION makes part of the mode line of the summary buffer.
+For each message, FUNCTION is applied to the message number and ARGS...
+and if the result is non-nil, that message is included.
+nil for FUNCTION means all messages."
+  (message "Computing summary lines...")
+  (let (sumbuf mesg was-in-summary)
+    (save-excursion
+      ;; Go to the Rmail buffer.
+      (cond ((eq major-mode 'rmail-summary-mode)
+	     (setq was-in-summary t)
+	     (set-buffer rmail-buffer))
+	    (rmail-buffer
+	     (set-buffer rmail-buffer)))
+      ;; Find its summary buffer, or make one.
+      (setq sumbuf
+	    (if (and rmail-summary-buffer
+		     (buffer-name rmail-summary-buffer))
+		rmail-summary-buffer
+	      (generate-new-buffer (concat (buffer-name) "-summary"))))
+      (setq mesg rmail-current-message)
+      ;; Filter the messages; make or get their summary lines.
+      (let ((summary-msgs ())
+	    (new-summary-line-count 0))
+	(let ((msgnum 1)
+	      (buffer-read-only nil)
+	      (old-min (point-min-marker))
+	      (old-max (point-max-marker)))
+	  ;; Can't use save-restriction here; that doesn't work if we
+	  ;; plan to modify text outside the original restriction.
+	  (save-excursion
+	    (widen)
+	    (goto-char (point-min))
+	    (while (>= rmail-total-messages msgnum)
+	      (if (or (null function)
+		      (apply function (cons msgnum args)))
+		  (setq summary-msgs
+			(cons (cons msgnum (rmail-make-summary-line msgnum))
+			      summary-msgs)))
+	      (setq msgnum (1+ msgnum)))
+	    (setq summary-msgs (nreverse summary-msgs)))
+	  (narrow-to-region old-min old-max))
+	;; Temporarily, while summary buffer is unfinished,
+	;; we "don't have" a summary.
+	(setq rmail-summary-buffer nil)
+	(save-excursion
+	  (let ((rbuf (current-buffer))
+		(vbuf rmail-view-buffer)
+		(total rmail-total-messages))
+	    (set-buffer sumbuf)
+	    ;; Set up the summary buffer's contents.
+	    (let ((buffer-read-only nil))
+	      (erase-buffer)
+	      (while summary-msgs
+		(princ (cdr (car summary-msgs)) sumbuf)
+		(setq summary-msgs (cdr summary-msgs)))
+	      (goto-char (point-min)))
+	    ;; Set up the rest of its state and local variables.
+	    (setq buffer-read-only t)
+	    (rmail-summary-mode)
+	    (make-local-variable 'minor-mode-alist)
+	    (setq minor-mode-alist (list (list t (concat ": " description))))
+	    (setq rmail-buffer rbuf
+		  rmail-view-buffer vbuf
+		  rmail-summary-redo redo-form
+		  rmail-total-messages total))))
+      (setq rmail-summary-buffer sumbuf))
+    ;; Now display the summary buffer and go to the right place in it.
+    (or was-in-summary
+	(progn
+	  (if (and (one-window-p)
+		   pop-up-windows (not pop-up-frames))
+	      ;; If there is just one window, put the summary on the top.
+	      (progn
+		(split-window (selected-window) rmail-summary-window-size)
+		(select-window (next-window (frame-first-window)))
+		(pop-to-buffer sumbuf)
+		;; If pop-to-buffer did not use that window, delete that
+		;; window.  (This can happen if it uses another frame.)
+		(if (not (eq sumbuf (window-buffer (frame-first-window))))
+		    (delete-other-windows)))
+	    (pop-to-buffer sumbuf))
+	  (set-buffer rmail-buffer)
+	  ;; This is how rmail makes the summary buffer reappear.
+	  ;; We do this here to make the window the proper size.
+	  (rmail-select-summary nil)
+	  (set-buffer rmail-summary-buffer)))
+    (rmail-summary-goto-msg mesg t t)
+    (rmail-summary-construct-io-menu)
+    (message "Computing summary lines...done")))
+  )
 
 
 ;;; @ end
