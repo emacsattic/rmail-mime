@@ -38,7 +38,7 @@
       (function
        (lambda (string)
 	 (eword-decode-string
-	  (decode-coding-string string 'automatic-conversion)
+	  (decode-coding-string string 'undecided)
 	  ))))
 
 
@@ -80,8 +80,8 @@
 	     (setq buf (get-buffer mime-view-buffer))
 	     )
 	(if (setq win (get-buffer-window buf))
-	    (progn
-	      (delete-window (get-buffer-window abuf))
+	    (let ((w (get-buffer-window abuf)))
+	      (if w (delete-window w))
 	      (set-window-buffer win abuf)
 	      (set-buffer abuf)
 	      ))
