@@ -29,9 +29,37 @@
 (require 'rmail)
 (require 'mime-view)
 
+(setq rmail-show-mime-function (function rmail-show-mime-message))
+
 
 ;;; @ for mule and MIME
 ;;;
+
+(defun rmail-show-all-header ()
+  (rmail-maybe-set-message-counters)
+  (narrow-to-region (rmail-msgbeg rmail-current-message) (point-max))
+  (let ((buffer-read-only nil))
+    (goto-char (point-min))
+    (forward-line 1)
+    (if (= (following-char) ?1)
+	(progn
+	  (delete-char 1)
+	  (insert ?0)
+	  (forward-line 1)
+	  (let ((case-fold-search t))
+	    (while (looking-at "Summary-Line:\\|Mail-From:")
+	      (forward-line 1)))
+	  (insert "*** EOOH ***\n")
+	  (forward-char -1)
+	  (search-forward "\n*** EOOH ***\n")
+	  (forward-line -1)
+	  (let ((temp (point)))
+	    (and (search-forward "\n\n" nil t)
+		 (delete-region temp (point))))
+	  (goto-char (point-min))
+	  (search-forward "\n*** EOOH ***\n")
+	  (narrow-to-region (point) (point-max)))
+      )))
 
 (defun rmail-show-mime-message ()
   (rmail-show-all-header)
@@ -64,16 +92,28 @@
 	  )
       )
     (set-window-buffer win buf)
+    (make-local-variable 'rmail-buffer)
+    (setq rmail-buffer abuf)
     ))
 
 (set-alist 'mime-text-decoder-alist
 	   'rmail-mode
 	   (function mime-charset/decode-buffer))
 
+(defun rmail-mime-quit ()
+  (interactive)
+  (if (eq major-mode 'mime-view-mode)
+      (progn
+	(switch-to-buffer mime::preview/article-buffer)
+	(bury-buffer mime::article/preview-buffer)
+	))
+  (let (rmail-enable-mime)
+    (rmail-quit)
+    ))
+
 (set-alist 'mime-view-quitting-method-alist
 	   'rmail-mode
-	   (function rmail-quit)
-	   )
+	   (function rmail-mime-quit))
 
 (set-alist 'mime-view-over-to-previous-method-alist
 	   'rmail-mode
@@ -138,5 +178,7 @@
   
 ;;; @ end
 ;;;
+
+(provide 'rmail-mime)
 
 ;;; rmail-mime.el ends here
