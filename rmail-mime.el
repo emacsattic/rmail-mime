@@ -85,6 +85,9 @@
 	(progn
 	  (save-excursion
 	    (set-buffer buf)
+	    (if (get-buffer buf-name)
+		(kill-buffer buf-name)
+	      )
 	    (rename-buffer buf-name)
 	    )
 	  (if (setq win (get-buffer-window buf))
