@@ -83,20 +83,17 @@ Mailing lists
 =============
 
   If you write bug-reports and/or suggestions for improvement, please
-  send them to the tm Mailing List:
+  send them to the EMACS-MIME Mailing List:
 
-	bug-tm-en@chamonix.jaist.ac.jp	(English)
-	bug-tm-ja@chamonix.jaist.ac.jp	(Japanese)
+	emacs-mime-en@m17n.org	(English)
+	emacs-mime-ja@m17n.org	(Japanese)
 
-  Via the tm ML, you can report RMAIL-MIME bugs, obtain the latest
-  release of RMAIL-MIME, and discuss future enhancements to
-  RMAIL-MIME.  To join the tm ML, send e-mail to
+  Via the EMACS-MIME ML, you can report RMAIL-MIME bugs, obtain the
+  latest release of RMAIL-MIME, and discuss future enhancements to
+  RMAIL-MIME.  To join the EMACS-MIME ML, send an empty e-mail to
 
-	tm-ja-admin@chamonix.jaist.ac.jp	(Japanese)
-	tm-en-admin@chamonix.jaist.ac.jp	(English)
-
-  Since the user registration is done manually, please write the mail
-  body in human-recognizable language (^_^).
+	emacs-mime-en-ctl@m17n.org	(English)
+	emacs-mime-ja-ctl@m17n.org	(Japanese)
 
 
 CVS based development
