@@ -1,8 +1,8 @@
 #
-# $Id$
+# Makefile for RMAIL-MIME.
 #
 
-VERSION = 1.1.0
+VERSION = 1.5.0
 
 TAR	= tar
 RM	= /bin/rm -f
