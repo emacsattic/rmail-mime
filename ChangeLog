@@ -1,3 +1,7 @@
+1999-08-18  MORIOKA Tomohiko  <tomo@m17n.org>
+
+	* RMAIL-MIME: Version 1.13.0 released.
+
 1998-10-11  MORIOKA Tomohiko  <tomo@m17n.org>
 
 	* rmail-mime.el (rmail-show-all-header): Deleted.
