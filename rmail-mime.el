@@ -29,6 +29,10 @@
 (require 'rmail)
 (require 'mime-view)
 
+(eval-when-compile
+  (load "rmailsum")
+  )
+
 (setq rmail-show-mime-function (function rmail-show-mime-message))
 (setq rmail-summary-line-decoder
       (function
