@@ -94,6 +94,10 @@
     (set-window-buffer win buf)
     (make-local-variable 'rmail-buffer)
     (setq rmail-buffer abuf)
+    (save-excursion
+      (set-buffer abuf)
+      (setq rmail-view-buffer buf)
+      )
     ))
 
 (set-alist 'mime-text-decoder-alist
