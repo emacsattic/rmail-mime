@@ -1,3 +1,9 @@
+1997-11-15  MORIOKA Tomohiko  <morioka@jaist.ac.jp>
+
+	* RMAIL-MIME-CFG:
+ 	- Regard LISPDIR if it is specified.
+	- Add mel's path.
+
 1997-10-10  Marc Girod        <girod@trshp.trs.ntc.nokia.com>
 
 	* rmail-mime.el (rmail-show-mime-message): fix.
