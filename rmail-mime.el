@@ -117,9 +117,6 @@
       (setq mode-line-process mode-line)
       )))
 
-;; (set-alist 'mime-text-decoder-alist
-;;            'rmail-mode
-;;            (function mime-text-decode-buffer))
 (set-alist 'mime-raw-representation-type-alist 'rmail-mode 'binary)
 
 (defun rmail-mime-quit ()
