@@ -88,8 +88,8 @@
       )
     (setq win (get-buffer-window abuf))
     (save-window-excursion
-      (mime-view-mode nil nil nil nil buf-name
-		      'rmail-mime-execute-original-command)
+      (mime-view-buffer nil buf-name nil
+			'rmail-mime-execute-original-command)
       (or buf
 	  (setq buf (current-buffer))
 	  )
@@ -151,14 +151,6 @@
 		(rmail-next-undeleted-message 1)
 		))))
 
-(set-alist 'mime-view-show-summary-method
-	   'rmail-mode
-	   (function
-	    (lambda ()
-	      (save-excursion
-		(set-buffer mime-raw-buffer)
-		(rmail-summary)
-		))))
 
 (cond
  ((featurep 'xemacs)
