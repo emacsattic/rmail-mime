@@ -4,9 +4,9 @@ Introduction
 ============
 
   RMAIL-MIME is a module to provide MIME feature using SEMI required
-  by RMAIL included in Emacs 20.  It requires SEMI 1.6 API based MIME
+  by RMAIL included in Emacs 20.  It requires SEMI 1.13 API based MIME
   processing module, so please get and install such kind of MIME
-  processing module such as SEMI 1.6.0 or later at first.
+  processing module such as SEMI 1.13.5 or later at first.
 
 
 Installation
