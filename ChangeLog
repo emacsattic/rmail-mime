@@ -1,0 +1,194 @@
+1997-05-30  MORIOKA Tomohiko  <morioka@jaist.ac.jp>
+
+	* RMAIL-MIME: Version 0.29 was released.
+
+Wed May 28 17:37:48 1997  MORIOKA Tomohiko  <morioka@jaist.ac.jp>
+
+	* rmail-mime.el (rmail-mime-execute-original-command): Use
+	different definition for Emacs and XEmacs.
+
+Wed May 28 13:07:04 1997  MORIOKA Tomohiko  <morioka@jaist.ac.jp>
+
+	* rmail-mime.el (rmail-mime-execute-original-command): fixed
+	problem about function key and scroll-bar.
+
+Tue May 27 15:59:28 1997  MORIOKA Tomohiko  <morioka@jaist.ac.jp>
+
+	* rmail-mime.el (rmail-mime-execute-original-command): Use
+	`last-command-event' instead of `last-input-event' to fix problem
+	with XEmacs.
+
+Fri May 23 22:46:57 1997  MORIOKA Tomohiko  <morioka@jaist.ac.jp>
+
+	* rmail-mime.el (rmail-show-mime-message): Add font-lock setting;
+	call `rmail-show-mime-message-hook'.
+
+
+1997-03-18  MORIOKA Tomohiko  <morioka@jaist.ac.jp>
+
+	* RMAIL-MIME: Version 0.25 was released.
+
+Tue Mar 18 17:29:02 1997  MORIOKA Tomohiko  <morioka@jaist.ac.jp>
+
+	* README.en: New file.
+
+Tue Mar 18 15:09:09 1997  MORIOKA Tomohiko  <morioka@jaist.ac.jp>
+
+	* rmail-mime.el: `mime::preview/article-buffer' ->
+ 	`mime-raw-buffer'.
+
+Tue Mar 18 14:43:05 1997  MORIOKA Tomohiko  <morioka@jaist.ac.jp>
+
+	* rmail-mime.el: `mime::article/preview-buffer' ->
+ 	`mime-view-buffer'.
+
+Sun Mar 16 00:17:35 1997  MORIOKA Tomohiko  <morioka@jaist.ac.jp>
+
+	* rmail-mime.el: `mime-charset/decode-buffer' ->
+ 	`mime-text-decode-buffer'.
+
+
+1997-03-14  MORIOKA Tomohiko  <morioka@jaist.ac.jp>
+
+	* RMAIL-MIME: Version 0.22 was released.
+
+	* Makefile, RMAIL-MIME-MK, RMAIL-MIME-CFG, RMAIL-MIME-ELS: New
+ 	file.
+
+Fri Mar 14 12:36:56 1997  MORIOKA Tomohiko  <morioka@jaist.ac.jp>
+
+	* rmail-mime.el (rmail-show-mime-message): Don't rename
+ 	buffer-name of `rmail-view-buffer'; Use `mode-line-process' of
+ 	`rmail-buffer'.
+
+Sat Mar  1 04:31:06 1997  Tomohiko Morioka  <tmorioka@mule.etl.go.jp>
+
+	* rmail-mime.el (rmail-show-mime-message): Kill old preview buffer
+ 	if its name is as same as value of `buf-name'.
+
+Fri Feb 28 08:19:57 1997  Tomohiko Morioka  <tmorioka@mule.etl.go.jp>
+
+	* rmail-mime.el: Require alist.
+
+Tue Feb 25 05:59:26 1997  Tomohiko Morioka  <tmorioka@mule.etl.go.jp>
+
+	* rmail-mime.el: load "rmailsum" when compiling.
+
+Tue Feb 25 05:53:56 1997  Tomohiko Morioka  <tmorioka@mule.etl.go.jp>
+
+	* rmail-mime.el: Set for `rmail-summary-line-decoder'.
+
+	* rmailsum.el (rmail-summary-line-decoder): Initial value was
+ 	changed to `(function identity)'.
+
+Tue Feb 25 05:47:53 1997  Tomohiko Morioka  <tmorioka@mule.etl.go.jp>
+
+	* rmailsum.el (rmail-new-summary): Set for `rmail-view-buffer'.
+	(rmail-summary-next-msg, rmail-summary-rmail-update): Use
+ 	`rmail-view-buffer' instead of function `rmail-preview-buffer'.
+	(rmail-summary-mode): New buffer-local variable
+ 	`rmail-view-buffer'.
+	(rmail-summary-scroll-msg-up): Use `rmail-view-buffer'.
+
+Tue Feb 25 05:42:33 1997  Tomohiko Morioka  <tmorioka@mule.etl.go.jp>
+
+	* rmail-mime.el (rmail-show-mime-message): Set for `rmail-buffer'
+ 	of RMAIL buffer.
+
+	* rmail-mime.el: Set for `rmail-show-mime-function'.
+	(rmail-show-all-header): Moved from rmail.el.
+	(rmail-show-mime-message): Make local-variable `rmail-buffer' and
+ 	set for it.
+	(rmail-mime-quit): New function.
+
+	* rmail.el (rmail-variables): set for `rmail-buffer' and
+ 	`rmail-view-buffer'.
+	(rmail-show-message): Don't set for `rmail-buffer'.
+
+Mon Feb 24 13:08:49 1997  Tomohiko Morioka  <tmorioka@mule.etl.go.jp>
+
+	* rmail.el: Rearrangement; Variable `rmail-show-mime' was
+ 	abolished; Variable `rmail-show-mime-method' was renamed to
+ 	`rmail-show-mime-function'.
+2
+	(rmail-mime-feature): New variable.
+	(rmail-view-buffer): New local variable.
+
+	* rmail.el (rmail-show-message): fixed.
+
+	* rmailsum.el (rmail-summary-line-decoder): New variable.
+	(rmail-make-summary-line-1): Use variable
+ 	`rmail-summary-line-decoder'.
+
+	* rmailsum.el (rmail-summary-next-msg): Use function
+ 	`rmail-preview-buffer'.
+	(rmail-summary-rmail-update): Use function `rmail-preview-buffer'.
+	(rmail-summary-scroll-msg-up): Modified for preview buffer.
+	(rmail-make-summary-line-1): Modified to decode MIME encoded-word.
+
+	* rmail.el (rmail-show-mime): Default value was changed to
+ 	`rmail-enable-mime'.
+
+	* rmail.el (rmail-enable-mime): Default value was changed to nil.
+
+	* rmail-mime.el: Don't provide.
+
+	* rmail-mime.el: Constant `rmail-mime-RCS-ID' and
+ 	`rmail-mime-version' were abolished.
+
+	* rmail-mime.el: Function `rmail-show-message' was abolished.
+
+	* rmail.el (rmail-show-message): Modify for MIME Preview buffer.
+
+	* rmail.el (rmail-convert-to-babyl-format): Don't
+ 	decode-coding-system if variable `rmail-enable-mime' is not nil.
+
+	* rmail-mime.el: Function `rmail-insert-inbox-text' and
+ 	`rmail-convert-to-babyl-format' were abolished.
+
+	* rmail-mime.el: Function `rmail-quit' was moved to rmail.el.
+
+	* rmail.el (rmail-quit): Modified for MIME preview buffer.
+
+	* rmail-mime.el: Function `rmail' was moved to rmail.el.
+
+	* rmail.el (rmail): find-file as no-conversion.
+
+	* rmail-mime.el: Function `rmail-show-all-header' was moved to
+ 	rmail.el.
+
+	* rmail.el (rmail-show-all-header): New function.
+
+	* rmail.el (rmail-enable-mime, rmail-show-mime,
+ 	rmail-show-mime-method): New variable.
+
+	* rmail-mime.el: Variable `rmail-show-mime' and
+ 	`rmail-show-mime-method' were abolished.
+
+	* rmail-mime.el: Constant `rmail-support-mime' was abolished.
+
+Mon Feb 24 07:17:08 1997  Tomohiko Morioka  <tmorioka@mule.etl.go.jp>
+
+	* rmail-mime.el: Function `rmail-preview-buffer' was moved to
+ 	rmail.el.
+
+	* rmail.el (rmail-preview-buffer): New inline-function; moved from
+ 	rmail-mime.el.
+
+	* rmail.el (rmail-mail, rmail-reply): Use function
+ 	`rmail-preview-buffer' instead of variable `rmail-buffer'.
+
+Mon Feb 24 04:26:19 1997  Tomohiko Morioka  <tmorioka@mule.etl.go.jp>
+
+	* rmail-mime.el (rmail-preview-buffer): New inline-function.
+
+Fri Feb 21 04:33:07 1997  Tomohiko Morioka  <tmorioka@mule.etl.go.jp>
+
+	* rmail-mime.el: modified for SEMI mime-view.
+
+Thu Feb 20 08:51:50 1997  Tomohiko Morioka  <tmorioka@mule.etl.go.jp>
+
+	* rmail-mime.el (rmail-mime-execute-original-command): Don't use
+ 	`save-window-excursion'.
+
+	* rmail-mime.el: New module; separated from Radical RMAIL.
