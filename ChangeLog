@@ -1,3 +1,11 @@
+1998-06-14  MORIOKA Tomohiko  <morioka@jaist.ac.jp>
+
+	* rmail-mime.el: Rename `mime-view-over-to-previous-method-alist'
+	-> `mime-preview-over-to-previous-method-alist'; rename
+	`mime-view-over-to-next-method-alist' ->
+	`mime-preview-over-to-next-method-alist'.
+
+
 1998-06-04  MORIOKA Tomohiko  <morioka@jaist.ac.jp>
 
 	* RMAIL-MIME: Version 1.5.0 was released.
