@@ -113,7 +113,7 @@
   (interactive)
   (if (eq major-mode 'mime-view-mode)
       (progn
-	(switch-to-buffer mime::preview/article-buffer)
+	(switch-to-buffer mime-raw-buffer)
 	(bury-buffer mime-view-buffer)
 	))
   (let (rmail-enable-mime)
@@ -129,7 +129,7 @@
 	   (function
 	    (lambda ()
 	      (save-window-excursion
-		(switch-to-buffer mime::preview/article-buffer)
+		(switch-to-buffer mime-raw-buffer)
 		(rmail-previous-undeleted-message 1)
 		))))
 
@@ -138,7 +138,7 @@
 	   (function
 	    (lambda ()
 	      (save-window-excursion
-		(switch-to-buffer mime::preview/article-buffer)
+		(switch-to-buffer mime-raw-buffer)
 		(rmail-next-undeleted-message 1)
 		))))
 
@@ -147,7 +147,7 @@
 	   (function
 	    (lambda ()
 	      (save-excursion
-		(set-buffer mime::preview/article-buffer)
+		(set-buffer mime-raw-buffer)
 		(rmail-summary)
 		))))
 
@@ -172,7 +172,7 @@
 	(let ((pwin (selected-window))
 	      (pbuf (current-buffer))
 	      )
-	  (switch-to-buffer mime::preview/article-buffer)
+	  (switch-to-buffer mime-raw-buffer)
 	  (call-interactively ret)
 	  (if (window-live-p pwin)
 	      (set-window-buffer pwin pbuf)
