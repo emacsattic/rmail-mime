@@ -6,8 +6,8 @@ What's rmail-mime?
 ------------
 
   rmail-mime is a module to provide MIME feature using SEMI required
-  by RMAIL included in Emacs/mule.  It requires SEMI package, so
-  please get and install SEMI package.
+  by RMAIL included in Emacs 20.  It requires SEMI package, so please
+  get and install SEMI package.
 
 
 Installation
@@ -32,9 +32,7 @@ Installation
   You can specify other optional settings by editing the file
   rmail-mime/RMAIL-MIME-CFG.
 
-  Notice that it requires RMAIL included in Emacs/mule
-  19.34.94-epsilon or later.  If you use Emacs 19.34, please install
-  rmail-19.34.94.tar.gz.  Sorry, XEmacs is not supported yet.
+  Notice that it requires RMAIL included in Emacs 20.
 
 
 Initialization
