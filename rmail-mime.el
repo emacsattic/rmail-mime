@@ -28,7 +28,6 @@
 
 (require 'rmail)
 (require 'mime-view)
-(require 'alist)
 
 (eval-when-compile
   (load "rmailsum")
@@ -108,7 +107,7 @@
 
 (set-alist 'mime-text-decoder-alist
 	   'rmail-mode
-	   (function mime-charset/decode-buffer))
+	   (function mime-text-decode-buffer))
 
 (defun rmail-mime-quit ()
   (interactive)
