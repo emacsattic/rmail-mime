@@ -1,0 +1,8 @@
+;;; -*-Emacs-Lisp-*-
+;;;
+;;; $Id$
+;;;
+
+(setq rmail-mime-modules '(rmail-mime))
+
+;;; RMAIL-MIME-ELS ends here

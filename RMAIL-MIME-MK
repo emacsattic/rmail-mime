@@ -1,0 +1,30 @@
+;;; -*-Emacs-Lisp-*-
+;;;
+;;; $Id$
+;;;
+
+(defun config-rmail-mime ()
+  (let (prefix)
+    (setq prefix (car command-line-args-left))
+    (and prefix
+	 (not (string-equal "NONE" prefix))
+	 (progn
+	   (defvar PREFIX prefix)
+	   (setq command-line-args-left (cdr command-line-args-left))
+	   ))
+    (load-file "RMAIL-MIME-CFG")
+    (load-file "RMAIL-MIME-ELS")
+    (princ (format "PREFIX=%s\n" PREFIX))
+    ))
+
+(defun compile-rmail-mime ()
+  (config-rmail-mime)
+  (compile-elisp-modules rmail-mime-modules ".")
+  )
+
+(defun install-rmail-mime ()
+  (config-rmail-mime)
+  (install-elisp-modules rmail-mime-modules "./" RMAIL_MIME_DIR)
+  )
+
+;;; RMAIL-MIME-MK ends here
