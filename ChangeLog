@@ -1,3 +1,11 @@
+1999-08-18  MORIOKA Tomohiko  <tomo@m17n.org>
+
+	* rmail-mime.el (rmail-mime-quit): Don't refer `mime-raw-buffer'
+	and `mime-preview-buffer'.
+	(mime-preview-over-to-previous-method-alist): Likewise.
+	(mime-preview-over-to-next-method-alist): Likewise.
+	(rmail-mime-execute-original-command): Likewise.
+
 1999-06-07  Marc Girod  <girod@shire.ntc.nokia.com>
 
 	* rmail-show-mime-message: minor fix to insure that the mode line
