@@ -606,16 +606,6 @@ If summary buffer is currently displayed, update current message there also."
 ;;; @ Summary
 ;;;
 
-(defsubst rmail-preview-buffer ()
-  (and (boundp 'rmail-buffer)
-       (save-excursion
-	 (set-buffer rmail-buffer)
-	 (if (and (boundp 'mime::article/preview-buffer)
-		  (get-buffer-window mime::article/preview-buffer)
-		  )
-	     mime::article/preview-buffer
-	   rmail-buffer))))
-
 ;; (defadvice rmail-summary-scroll-msg-up (around rmail-mime activate)
 ;;   (let ((rmail-buffer
 ;;          (save-excursion
