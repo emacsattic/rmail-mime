@@ -2,7 +2,7 @@
 
 ;; Copyright (C) 1985,86,87,88,93,94,95,96,97,98,99 Free Software Foundation, Inc.
 
-;; Author: MORIOKA Tomohiko <morioka@jaist.ac.jp>
+;; Author: MORIOKA Tomohiko <tomo@m17n.org>
 ;; Created: 1997/2/17
 ;; Keywords: MIME, multimedia, mail
 
@@ -123,10 +123,13 @@
 (defun rmail-mime-quit ()
   (interactive)
   (if (eq major-mode 'mime-view-mode)
-      (progn
-	(switch-to-buffer mime-raw-buffer)
-	(bury-buffer mime-preview-buffer)
-	))
+      (let ((entity (get-text-property (point-min) 'mime-view-entity))
+	    (buf (current-buffer)))
+	(when entity
+	  (switch-to-buffer (mime-entity-header-buffer entity))
+          ;; (switch-to-buffer mime-raw-buffer)
+          ;; (bury-buffer mime-preview-buffer)
+	  (bury-buffer buf))))
   (let (rmail-enable-mime)
     (rmail-quit)
     ))
@@ -138,19 +141,24 @@
 	   'rmail-mode
 	   (function
 	    (lambda ()
-	      (save-window-excursion
-		(switch-to-buffer mime-raw-buffer)
-		(rmail-previous-undeleted-message 1)
-		))))
+	      (let ((entity (get-text-property (point-min) 'mime-view-entity)))
+		(save-window-excursion
+		  (when entity
+		    (switch-to-buffer (mime-entity-header-buffer entity))
+		    (rmail-previous-undeleted-message 1)
+		    ))))))
 
 (set-alist 'mime-preview-over-to-next-method-alist
 	   'rmail-mode
 	   (function
 	    (lambda ()
 	      (save-window-excursion
-		(switch-to-buffer mime-raw-buffer)
-		(rmail-next-undeleted-message 1)
-		))))
+		(let ((entity (get-text-property (point-min)
+						 'mime-view-entity)))
+		  (when entity
+		    (switch-to-buffer (mime-entity-header-buffer entity))
+		    (rmail-next-undeleted-message 1)
+		    ))))))
 
 
 (cond
@@ -171,8 +179,9 @@
 	       ))
 	(let ((pwin (selected-window))
 	      (pbuf (current-buffer))
-	      )
-	  (switch-to-buffer mime-raw-buffer)
+	      (entity (get-text-property (point-min) 'mime-view-entity)))
+	  (if entity
+	      (switch-to-buffer (mime-entity-header-buffer entity)))
 	  (call-interactively ret)
 	  (if (window-live-p pwin)
 	      (set-window-buffer pwin pbuf)
@@ -209,8 +218,9 @@
 	       ))
 	(let ((pwin (selected-window))
 	      (pbuf (current-buffer))
-	      )
-	  (switch-to-buffer mime-raw-buffer)
+	      (entity (get-text-property (point-min) 'mime-view-entity)))
+	  (if entity
+	      (switch-to-buffer (mime-entity-header-buffer entity)))
 	  (call-interactively ret)
 	  (and (window-live-p pwin)
 	       (not (eq ret 'rmail-input))
