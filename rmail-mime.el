@@ -43,32 +43,6 @@
 ;;; @ for mule and MIME
 ;;;
 
-(defun rmail-show-all-header ()
-  (rmail-maybe-set-message-counters)
-  (narrow-to-region (rmail-msgbeg rmail-current-message) (point-max))
-  (let ((buffer-read-only nil))
-    (goto-char (point-min))
-    (forward-line 1)
-    (if (= (following-char) ?1)
-	(progn
-	  (delete-char 1)
-	  (insert ?0)
-	  (forward-line 1)
-	  (let ((case-fold-search t))
-	    (while (looking-at "Summary-Line:\\|Mail-From:")
-	      (forward-line 1)))
-	  (insert "*** EOOH ***\n")
-	  (forward-char -1)
-	  (search-forward "\n*** EOOH ***\n")
-	  (forward-line -1)
-	  (let ((temp (point)))
-	    (and (search-forward "\n\n" nil t)
-		 (delete-region temp (point))))
-	  (goto-char (point-min))
-	  (search-forward "\n*** EOOH ***\n")
-	  (narrow-to-region (point) (point-max)))
-      )))
-
 (defun rmail-show-mime-message ()
   (rmail-show-all-header)
   (let ((abuf (current-buffer))
