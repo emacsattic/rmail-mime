@@ -1,3 +1,18 @@
+1997-10-02  MORIOKA Tomohiko  <morioka@jaist.ac.jp>
+
+	* README.en: Modify for Emacs 20.2.
+
+1997-10-01  Marc Girod        <girod@trshp.trs.ntc.nokia.com>
+
+	* rmail-mime.el (rmail-show-mime-message): Fix problem about
+ 	delete-window (cf. [tm-en:1478]).
+
+1997-09-30  Marc Girod        <girod@trshp.trs.ntc.nokia.com>
+	
+	* rmail-mime.el (rmail-summary-line-decoder): Rename
+ 	`automatic-conversion' -> `undecided'. (cf. [tm-en:1476])
+
+
 1997-05-30  MORIOKA Tomohiko  <morioka@jaist.ac.jp>
 
 	* RMAIL-MIME: Version 0.29 was released.
