@@ -136,7 +136,7 @@
 (set-alist 'mime-preview-quitting-method-alist
 	   'rmail-mode #'rmail-mime-quit)
 
-(set-alist 'mime-view-over-to-previous-method-alist
+(set-alist 'mime-preview-over-to-previous-method-alist
 	   'rmail-mode
 	   (function
 	    (lambda ()
@@ -145,7 +145,7 @@
 		(rmail-previous-undeleted-message 1)
 		))))
 
-(set-alist 'mime-view-over-to-next-method-alist
+(set-alist 'mime-preview-over-to-next-method-alist
 	   'rmail-mode
 	   (function
 	    (lambda ()
