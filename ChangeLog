@@ -1,3 +1,10 @@
+1998-10-11  MORIOKA Tomohiko  <tomo@m17n.org>
+
+	* rmail-mime.el (rmail-show-all-header): Deleted.
+	(rmail-show-mime-message): Use `(rmail-toggle-header 0)' instead
+	of `(rmail-show-all-header)'.
+	- Redefine `rmail-new-summary' after rmailsum is loaded.
+
 1999-08-18  MORIOKA Tomohiko  <tomo@m17n.org>
 
 	* rmail-mime.el (rmail-mime-quit): Don't refer `mime-raw-buffer'
