@@ -146,34 +146,6 @@
       )))
 
 
-;;; @ Rmail Mode
-;;;
-
-;;;###autoload
-
-(defun rmail-quit ()
-  "Quit out of RMAIL."
-  (interactive)
-  (if (eq major-mode 'mime-view-mode)
-      (let ((buf mime::preview/article-buffer)
-	    (pbuf (current-buffer))
-	    )
-	(switch-to-buffer buf)
-	(bury-buffer pbuf)
-	))
-  (let (rmail-show-mime)
-    (rmail-expunge-and-save)
-    )
-  ;; Don't switch to the summary buffer even if it was recently visible.
-  (if rmail-summary-buffer
-      (progn
-	(replace-buffer-in-windows rmail-summary-buffer)
-	(bury-buffer rmail-summary-buffer)))
-  (let ((obuf (current-buffer)))
-    (replace-buffer-in-windows obuf)
-    (bury-buffer obuf)))
-
-
 ;;; @ Rmail input
 ;;;
 
