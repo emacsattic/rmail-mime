@@ -43,7 +43,6 @@
 ;;; @ for mule and MIME
 ;;;
 
-(defconst rmail-support-mime t)
 (defvar rmail-show-mime t)
 (defvar rmail-show-mime-method (function rmail-show-mime-message))
 
