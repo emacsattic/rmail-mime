@@ -43,9 +43,6 @@
 ;;; @ for mule and MIME
 ;;;
 
-(defvar rmail-show-mime t)
-(defvar rmail-show-mime-method (function rmail-show-mime-message))
-
 (defun rmail-show-all-header ()
   (rmail-maybe-set-message-counters)
   (narrow-to-region (rmail-msgbeg rmail-current-message) (point-max))
