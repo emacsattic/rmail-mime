@@ -85,9 +85,11 @@
 	(progn
 	  (save-excursion
 	    (set-buffer buf)
-	    (if (get-buffer buf-name)
-		(kill-buffer buf-name)
-	      )
+	    (let ((obuf (get-buffer buf-name)))
+	      (or (equal obuf buf)
+		  (and obuf
+		       (kill-buffer buf-name)
+		       )))
 	    (rename-buffer buf-name)
 	    )
 	  (if (setq win (get-buffer-window buf))
