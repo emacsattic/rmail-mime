@@ -2,6 +2,8 @@
 
 	* RMAIL-MIME: Version 1.1.0 was released.
 
+	* README.en (Introduction): Add description about SEMI 1.1.0.
+
 1998-03-13  MORIOKA Tomohiko  <morioka@jaist.ac.jp>
 
 	* rmail-mime.el: Rename `mime-view-quitting-method-alist' ->
