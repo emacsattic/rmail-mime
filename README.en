@@ -1,17 +1,16 @@
-[README for rmail-mime package (English Version)]
-by MORIOKA Tomohiko <morioka@jaist.ac.jp>
-$Id$
+[README for RMAIL-MIME package (English Version)]
 
 Introduction
-------------
+============
 
-  rmail-mime is a module to provide MIME feature using SEMI required
-  by RMAIL included in Emacs 20.  It requires SEMI 1.1.0 or later, so
-  please get and install it at first.
+  RMAIL-MIME is a module to provide MIME feature using SEMI required
+  by RMAIL included in Emacs 20.  It requires SEMI 1.5 API based MIME
+  processing module, so please get and install such kind of MIME
+  processing module such as SEMI 1.5.0 or later at first.
 
 
 Installation
-------------
+============
 
 	% make install
 
@@ -36,7 +35,7 @@ Installation
 
 
 Initialization
---------------
+==============
 
   Please insert the following into your ~/.emacs:
 
@@ -56,17 +55,18 @@ Initialization
 
 
 Documentation
--------------
+=============
 
   To get started, please read documents of SEMI.
 
-  RFC's 822, 1806, 1847, 1896, 2015, 2045, 2046, 2047, 2048 and 2049
-  are available via anonymous ftp:
-  ftp://ds.internic.net/rfc/
+  RFC's 822, 1524, 1806, 1847, 1896, 2015, 2045, 2046, 2047, 2048 and
+  2049 are available via anonymous ftp:
+
+	ftp://ftp.merit.edu/internet/documents/rfc/
 
 
-Bug reports
------------
+Mailing lists
+=============
 
   If you write bug-reports and/or suggestions for improvement, please
   send them to the tm Mailing List:
@@ -74,12 +74,23 @@ Bug reports
 	bug-tm-en@chamonix.jaist.ac.jp	(English)
 	bug-tm-ja@chamonix.jaist.ac.jp	(Japanese)
 
-  Via the tm ML, you can report tm bugs, obtain the latest release of
-  tm, and discuss future enhancements to tm. To join the tm ML, send
-  e-mail to
+  Via the tm ML, you can report RMAIL-MIME bugs, obtain the latest
+  release of RMAIL-MIME, and discuss future enhancements to
+  RMAIL-MIME.  To join the tm ML, send e-mail to
 
 	tm-ja-admin@chamonix.jaist.ac.jp	(Japanese)
 	tm-en-admin@chamonix.jaist.ac.jp	(English)
 
   Since the user registration is done manually, please write the mail
   body in human-recognizable language (^_^).
+
+
+CVS based development
+=====================
+
+  If you would like to join CVS based development, please send mail to
+
+	cvs@chamonix.jaist.ac.jp
+
+  with your account name and UNIX style crypted password.  We hope you 
+  will join the open development.
