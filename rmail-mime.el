@@ -75,30 +75,18 @@
 (defun rmail-show-mime-message ()
   (rmail-show-all-header)
   (let ((abuf (current-buffer))
-	(buf-name (format "*Preview-%s [%d/%d]*"
-			  (buffer-name)
-			  rmail-current-message rmail-total-messages))
+	(buf-name (concat "*View-" (buffer-name) "*"))
 	buf win)
     (if (and mime::article/preview-buffer
 	     (setq buf (get-buffer mime::article/preview-buffer))
 	     )
-	(progn
-	  (save-excursion
-	    (set-buffer buf)
-	    (let ((obuf (get-buffer buf-name)))
-	      (or (equal obuf buf)
-		  (and obuf
-		       (kill-buffer buf-name)
-		       )))
-	    (rename-buffer buf-name)
-	    )
-	  (if (setq win (get-buffer-window buf))
-	      (progn
-		(delete-window (get-buffer-window abuf))
-		(set-window-buffer win abuf)
-		(set-buffer abuf)
-		))
-	  ))
+	(if (setq win (get-buffer-window buf))
+	    (progn
+	      (delete-window (get-buffer-window abuf))
+	      (set-window-buffer win abuf)
+	      (set-buffer abuf)
+	      ))
+      )
     (setq win (get-buffer-window abuf))
     (save-window-excursion
       (mime-view-mode nil nil nil nil buf-name
@@ -110,11 +98,13 @@
     (set-window-buffer win buf)
     (make-local-variable 'rmail-buffer)
     (setq rmail-buffer abuf)
-    (save-excursion
-      (set-buffer abuf)
-      (setq rmail-view-buffer buf)
-      )
-    ))
+    (let ((mode-line
+	   (save-excursion
+	     (set-buffer abuf)
+	     (setq rmail-view-buffer buf)
+	     mode-line-process)))
+      (setq mode-line-process mode-line)
+      )))
 
 (set-alist 'mime-text-decoder-alist
 	   'rmail-mode
