@@ -3,16 +3,19 @@
 ;;; $Id$
 ;;;
 
-(setq load-path (nconc
-		 (mapcar (function
-			  (lambda (path)
-			    (expand-file-name path default-directory)
-			    ))
-			 '("." "../semi" "../emu" "../apel" "../mu" "../mel")
-			 )
-		 load-path))
+(defvar default-load-path load-path)
+
+(when (boundp 'LISPDIR)
+  (add-to-list 'default-load-path LISPDIR)
+  (add-to-list 'load-path LISPDIR)
+  (add-to-list 'load-path (expand-file-name "apel" LISPDIR))
+  )
 
 (require 'install)
+
+(add-path "semi")
+
+(add-to-list 'load-path (expand-file-name "." data-directory))
 
 
 ;;; @ Please specify prefix of install directory.
