@@ -131,9 +131,8 @@
     (rmail-quit)
     ))
 
-(set-alist 'mime-view-quitting-method-alist
-	   'rmail-mode
-	   (function rmail-mime-quit))
+(set-alist 'mime-preview-quitting-method-alist
+	   'rmail-mode #'rmail-mime-quit)
 
 (set-alist 'mime-view-over-to-previous-method-alist
 	   'rmail-mode
