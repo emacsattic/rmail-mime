@@ -2,7 +2,7 @@
 # $Id$
 #
 
-VERSION = 0.7
+VERSION = 0.30
 
 TAR	= gtar
 RM	= /bin/rm -f
@@ -27,8 +27,15 @@ clean:
 
 
 tar:
-	tar cvf ../rmail-mime-$(VERSION).tar $(FILES)
-	-cd ..; mkdir rmail-mime-$(VERSION)
-	cd ../rmail-mime-$(VERSION); $(TAR) xvf ../rmail-mime-$(VERSION).tar
-	cd ..; $(TAR) cvzf rmail-mime-$(VERSION).tar.gz rmail-mime-$(VERSION)
-	cd ..; $(RM) -r rmail-mime-$(VERSION); rm rmail-mime-$(VERSION).tar
+	cvs commit
+	sh -c 'cvs tag -RF rmail-mime-`echo $(VERSION)|sed s/\\\\./_/`; \
+	cd /tmp; cvs export -d rmail-mime-$(VERSION) \
+		-r rmail-mime-`echo $(VERSION)|sed s/\\\\./_/` SEMI/rmail-mime'
+	cd /tmp; $(TAR) cvzf rmail-mime-$(VERSION).tar.gz rmail-mime-$(VERSION)
+	cd /tmp; $(RM) -r rmail-mime-$(VERSION)
+	sed "s/VERSION/$(VERSION)/" < ftp.in > ftp
+#	tar cvf ../rmail-mime-$(VERSION).tar $(FILES)
+#	-cd ..; mkdir rmail-mime-$(VERSION)
+#	cd ../rmail-mime-$(VERSION); $(TAR) xvf ../rmail-mime-$(VERSION).tar
+#	cd ..; $(TAR) cvzf rmail-mime-$(VERSION).tar.gz rmail-mime-$(VERSION)
+#	cd ..; $(RM) -r rmail-mime-$(VERSION); rm rmail-mime-$(VERSION).tar
