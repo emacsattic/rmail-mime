@@ -4,9 +4,7 @@
 ;; Copyright (C) 1996,1997 MORIOKA Tomohiko
 
 ;; Author: MORIOKA Tomohiko <morioka@jaist.ac.jp>
-;; Created: 1994/7/13
-;;	Renamed: 1994/8/31 from tm-body.el
-;;	Renamed: 1997/02/19 from tm-view.el
+;; Created: 1997/2/17
 ;; Version: $Revision$
 ;; Keywords: MIME, multimedia, mail
 
@@ -44,8 +42,6 @@
 
 ;;; @ for mule and MIME
 ;;;
-
-(require 'tm-view)
 
 (defconst rmail-support-mime t)
 (defvar rmail-show-mime t)
