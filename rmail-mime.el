@@ -150,62 +150,6 @@
 ;;;
 
 ;;;###autoload
-(defun rmail (&optional file-name-arg)
-  "Read and edit incoming mail.
-Moves messages into file named by `rmail-file-name' (a babyl format file)
- and edits that file in RMAIL Mode.
-Type \\[describe-mode] once editing that file, for a list of RMAIL commands.
-
-May be called with file name as argument; then performs rmail editing on
-that file, but does not copy any new mail into the file.
-Interactively, if you supply a prefix argument, then you
-have a chance to specify a file name with the minibuffer.
-
-If `rmail-display-summary' is non-nil, make a summary for this RMAIL file."
-  (interactive (if current-prefix-arg
-		   (list (read-file-name "Run rmail on RMAIL file: "))))
-  (let* ((file-name (expand-file-name (or file-name-arg rmail-file-name)))
-	 (existed (get-file-buffer file-name))
-	 run-mail-hook)
-    ;; Like find-file, but in the case where a buffer existed
-    ;; and the file was reverted, recompute the message-data.
-    (as-binary-input-file
-     (if (and existed (not (verify-visited-file-modtime existed)))
-	 (progn
-	   ;; Don't be confused by apparent local-variables spec
-	   ;; in the last message in the RMAIL file.
-	   (let ((enable-local-variables nil))
-	     (find-file file-name))
-	   (if (and (verify-visited-file-modtime existed)
-		    (eq major-mode 'rmail-mode))
-	       (progn (rmail-forget-messages)
-		      (rmail-set-message-counters))))
-       (let ((enable-local-variables nil))
-	 (find-file file-name)))
-     )
-    (if (eq major-mode 'rmail-edit-mode)
-	(error "Exit Rmail Edit mode before getting new mail."))
-    (if (and existed (> (buffer-size) 0))
-	;; Buffer not new and not empty; ensure in proper mode, but that's all.
-	(or (eq major-mode 'rmail-mode)
-	    (progn (rmail-mode-2)
-		   (setq run-mail-hook t)))
-      (setq run-mail-hook t)
-      (rmail-mode-2)
-      ;; Convert all or part to Babyl file if possible.
-      (rmail-convert-file)
-      (goto-char (point-max))
-      (if (null rmail-inbox-list)
-	  (progn
-	    (rmail-set-message-counters)
-	    (rmail-show-message))))
-    (or (and (null file-name-arg)
-	     (rmail-get-new-mail))
-	(rmail-show-message (rmail-first-unseen-message)))
-    (if rmail-display-summary (rmail-summary))
-    (rmail-construct-io-menu)
-    (if run-mail-hook
-	(run-hooks 'rmail-mode-hook))))
 
 (defun rmail-quit ()
   "Quit out of RMAIL."
