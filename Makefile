@@ -28,7 +28,8 @@ clean:
 
 tar:
 	cvs commit
-	sh -c 'cvs tag -RF rmail-mime-`echo $(VERSION)|sed s/\\\\./_/`; \
+	sh -c 'cvs tag -RF rmail-mime-`echo $(VERSION) \
+			| sed s/\\\\./_/ | sed s/\\\\./_/`; \
 	cd /tmp; \
 	cvs -d :pserver:anonymous@chamonix.jaist.ac.jp:/hare/cvs/root \
 		export -d rmail-mime-$(VERSION) \
