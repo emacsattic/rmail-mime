@@ -7,7 +7,7 @@
 ;; Version: $Id$
 ;; Keywords: MIME, multimedia, mail
 
-;; This file is part of Emacs.
+;; This file is not part of Emacs yet.
 
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -30,6 +30,12 @@
 (require 'mime-view)
 
 (setq rmail-show-mime-function (function rmail-show-mime-message))
+(setq rmail-summary-line-decoder
+      (function
+       (lambda (string)
+	 (eword-decode-string
+	  (decode-coding-string string 'automatic-conversion)
+	  ))))
 
 
 ;;; @ for mule and MIME
