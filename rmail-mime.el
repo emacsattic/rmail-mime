@@ -28,6 +28,7 @@
 
 (require 'rmail)
 (require 'mime-view)
+(require 'alist)
 
 (eval-when-compile
   (load "rmailsum")
