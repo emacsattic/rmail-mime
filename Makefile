@@ -44,7 +44,7 @@ tar:
 	sh -c 'cvs tag -RF rmail-mime-`echo $(VERSION) \
 			| sed s/\\\\./_/ | sed s/\\\\./_/`; \
 	cd /tmp; \
-	cvs -d :pserver:anonymous@chamonix.jaist.ac.jp:/hare/cvs/root \
+	cvs -d :pserver:anonymous@cvs.m17n.org:/cvs/root \
 		export -d rmail-mime-$(VERSION) \
 		-r rmail-mime-`echo $(VERSION) \
 			| sed s/\\\\./_/ | sed s/\\\\./_/` rmail-mime'
