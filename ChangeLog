@@ -1,3 +1,9 @@
+1999-06-07  Marc Girod  <girod@shire.ntc.nokia.com>
+
+	* rmail-show-mime-message: minor fix to insure that the mode line
+	is updated in the rmail view buffer, even as a result of
+	outputting from an other folder.
+
 1998-10-12  Katsumi Yamaoka   <yamaoka@jpl.org>
 
 	* README.en: Add explanations about `LISPDIR', and

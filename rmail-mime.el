@@ -1,6 +1,6 @@
 ;;; rmail-mime.el --- MIME extender for RMAIL
 
-;; Copyright (C) 1985,86,87,88,93,94,95,96,97,98 Free Software Foundation, Inc.
+;; Copyright (C) 1985,86,87,88,93,94,95,96,97,98,99 Free Software Foundation, Inc.
 
 ;; Author: MORIOKA Tomohiko <morioka@jaist.ac.jp>
 ;; Created: 1997/2/17
@@ -105,17 +105,18 @@
 	      (font-lock-inhibit-thing-lock
 	       . (lazy-lock-mode fast-lock-mode))))
       (run-hooks 'rmail-show-mime-message-hook)
+      (make-local-variable 'rmail-buffer)
+      (setq rmail-buffer abuf)
+      (let ((mode-line
+	     (save-excursion
+	       (set-buffer abuf)
+	       (setq rmail-view-buffer buf)
+	       mode-line-process)))
+	(setq mode-line-process mode-line)
+	)
       )
     (or (get-buffer-window buf t) (set-window-buffer win buf))
-    (make-local-variable 'rmail-buffer)
-    (setq rmail-buffer abuf)
-    (let ((mode-line
-	   (save-excursion
-	     (set-buffer abuf)
-	     (setq rmail-view-buffer buf)
-	     mode-line-process)))
-      (setq mode-line-process mode-line)
-      )))
+    ))
 
 (set-alist 'mime-raw-representation-type-alist 'rmail-mode 'binary)
 
