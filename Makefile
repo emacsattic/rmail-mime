@@ -35,9 +35,8 @@ tar:
 		export -d rmail-mime-$(VERSION) \
 		-r rmail-mime-`echo $(VERSION) \
 			| sed s/\\\\./_/ | sed s/\\\\./_/` rmail-mime'
-	$(RM) /tmp/semi-$(VERSION)/ftp.in
-	cd /tmp; $(TAR) cvzf rmail-mime-$(VERSION).tar.gz rmail-mime-$(VERSION)
 	cd /tmp; $(RM) -r rmail-mime-$(VERSION)
+	cd /tmp; $(TAR) cvzf rmail-mime-$(VERSION).tar.gz rmail-mime-$(VERSION)
 	sed "s/VERSION/$(VERSION)/" < ftp.in > ftp
 #	tar cvf ../rmail-mime-$(VERSION).tar $(FILES)
 #	-cd ..; mkdir rmail-mime-$(VERSION)
