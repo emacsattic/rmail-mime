@@ -2,9 +2,9 @@
 # $Id$
 #
 
-VERSION = 0.30
+VERSION = 0.31
 
-TAR	= gtar
+TAR	= tar
 RM	= /bin/rm -f
 EMACS	= emacs
 FLAGS   = -batch -q -no-site-file -l RMAIL-MIME-MK
