@@ -1,5 +1,7 @@
 1998-06-14  MORIOKA Tomohiko  <morioka@jaist.ac.jp>
 
+	* README.en: Modify for SEMI 1.6.
+
 	* rmail-mime.el: Rename `mime-view-over-to-previous-method-alist'
 	-> `mime-preview-over-to-previous-method-alist'; rename
 	`mime-view-over-to-next-method-alist' ->
