@@ -1,3 +1,7 @@
+2000-01-07  Taiji Can         <Taiji.Can@atesoft.advantest.co.jp>
+
+	* RMAIL-MIME-MK (install-rmail-mime-package): Fix typo.
+
 2000-01-05  Katsumi Yamaoka   <yamaoka@jpl.org>
 
 	* Makefile, README.en: Update for the new CVS server.

@@ -70,7 +70,7 @@
   (config-rmail-mime-package)
   (install-elisp-modules rmail-mime-modules
 			 "./"
-			 (expand-file-name RMAIL-MIME_PREFIX
+			 (expand-file-name RMAIL_MIME_PREFIX
 					   (expand-file-name "lisp"
 							     PACKAGEDIR)))
   )
