@@ -2,7 +2,7 @@
 # Makefile for RMAIL-MIME.
 #
 
-VERSION = 1.6.0
+VERSION = 1.6.1
 
 TAR	= tar
 RM	= /bin/rm -f
