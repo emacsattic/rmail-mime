@@ -1,14 +1,13 @@
 ;;; rmail-mime.el --- MIME extender for RMAIL
 
-;; Copyright (C) 1985,86,87,88,93,94,95,96 Free Software Foundation, Inc.
-;; Copyright (C) 1996,1997 MORIOKA Tomohiko
+;; Copyright (C) 1985,86,87,88,93,94,95,96,97 Free Software Foundation, Inc.
 
 ;; Author: MORIOKA Tomohiko <morioka@jaist.ac.jp>
 ;; Created: 1997/2/17
-;; Version: $Revision$
+;; Version: $Id$
 ;; Keywords: MIME, multimedia, mail
 
-;; This file is part of RMAIL-MIME.
+;; This file is part of Emacs.
 
 ;; This program is free software; you can redistribute it and/or
 ;; modify it under the terms of the GNU General Public License as
@@ -29,15 +28,6 @@
 
 (require 'rmail)
 (require 'mime-view)
-
-
-;;; @ version
-;;;
-
-(defconst rmail-mime-RCS-ID
-  "$Id$")
-
-(defconst rmail-mime-version (get-version-string rmail-mime-RCS-ID))
 
 
 ;;; @ for mule and MIME
