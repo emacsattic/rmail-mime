@@ -1,3 +1,9 @@
+1998-03-13  MORIOKA Tomohiko  <morioka@jaist.ac.jp>
+
+	* rmail-mime.el: Rename `mime-view-buffer' ->
+	`mime-preview-buffer'.
+
+
 1997-11-16  MORIOKA Tomohiko  <morioka@jaist.ac.jp>
 
 	* RMAIL-MIME: Version 0.31 was released.
