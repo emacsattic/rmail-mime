@@ -1,5 +1,36 @@
+;;; rmail-mime.el --- MIME extender for RMAIL
+
+;; Copyright (C) 1985,86,87,88,93,94,95,96 Free Software Foundation, Inc.
+;; Copyright (C) 1996,1997 MORIOKA Tomohiko
+
+;; Author: MORIOKA Tomohiko <morioka@jaist.ac.jp>
+;; Created: 1994/7/13
+;;	Renamed: 1994/8/31 from tm-body.el
+;;	Renamed: 1997/02/19 from tm-view.el
+;; Version: $Revision$
+;; Keywords: MIME, multimedia, mail
+
+;; This file is part of RMAIL-MIME.
+
+;; This program is free software; you can redistribute it and/or
+;; modify it under the terms of the GNU General Public License as
+;; published by the Free Software Foundation; either version 2, or (at
+;; your option) any later version.
+
+;; This program is distributed in the hope that it will be useful, but
+;; WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+;; General Public License for more details.
+
+;; You should have received a copy of the GNU General Public License
+;; along with GNU Emacs; see the file COPYING.  If not, write to the
+;; Free Software Foundation, Inc., 59 Temple Place - Suite 330,
+;; Boston, MA 02111-1307, USA.
+
+;;; Code:
+
 (require 'rmail)
-(require 'tl-str)
+(require 'mime-view)
 
 
 ;;; @ version
@@ -70,8 +101,8 @@
 	  ))
     (setq win (get-buffer-window abuf))
     (save-window-excursion
-      (mime/viewer-mode nil nil nil nil buf-name
-			nil 'rmail-mime-execute-original-command)
+      (mime-view-mode nil nil nil nil buf-name
+		      'rmail-mime-execute-original-command)
       (or buf
 	  (setq buf (current-buffer))
 	  )
@@ -79,16 +110,16 @@
     (set-window-buffer win buf)
     ))
 
-(set-alist 'mime-viewer/code-converter-alist
+(set-alist 'mime-text-decoder-alist
 	   'rmail-mode
 	   (function mime-charset/decode-buffer))
 
-(set-alist 'mime-viewer/quitting-method-alist
+(set-alist 'mime-view-quitting-method-alist
 	   'rmail-mode
 	   (function rmail-quit)
 	   )
 
-(set-alist 'mime-viewer/over-to-previous-method-alist
+(set-alist 'mime-view-over-to-previous-method-alist
 	   'rmail-mode
 	   (function
 	    (lambda ()
@@ -97,7 +128,7 @@
 		(rmail-previous-undeleted-message 1)
 		))))
 
-(set-alist 'mime-viewer/over-to-next-method-alist
+(set-alist 'mime-view-over-to-next-method-alist
 	   'rmail-mode
 	   (function
 	    (lambda ()
@@ -106,7 +137,7 @@
 		(rmail-next-undeleted-message 1)
 		))))
 
-(set-alist 'mime-viewer/show-summary-method
+(set-alist 'mime-view-show-summary-method
 	   'rmail-mode
 	   (function
 	    (lambda ()
@@ -213,7 +244,7 @@ If `rmail-display-summary' is non-nil, make a summary for this RMAIL file."
 (defun rmail-quit ()
   "Quit out of RMAIL."
   (interactive)
-  (if (eq major-mode 'mime/viewer-mode)
+  (if (eq major-mode 'mime-view-mode)
       (let ((buf mime::preview/article-buffer)
 	    (pbuf (current-buffer))
 	    )
@@ -519,7 +550,7 @@ If `rmail-display-summary' is non-nil, make a summary for this RMAIL file."
   "Show message number N (prefix argument), counting from start of file.
 If summary buffer is currently displayed, update current message there also."
   (interactive "p")
-  (if (eq major-mode 'mime/viewer-mode)
+  (if (eq major-mode 'mime-view-mode)
       (switch-to-buffer mime::preview/article-buffer)
     )
   (rmail-maybe-set-message-counters)
@@ -574,3 +605,13 @@ If summary buffer is currently displayed, update current message there also."
 		(rmail-summary-goto-msg curr-msg t t))))
 	(if blurb
 	    (message blurb))))))
+
+
+;;; @ end
+;;;
+
+(provide 'rmail-mime)
+
+(run-hooks 'rmail-mime-load-hook)
+
+;;; rmail-mime.el ends here
