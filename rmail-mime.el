@@ -1,10 +1,9 @@
 ;;; rmail-mime.el --- MIME extender for RMAIL
 
-;; Copyright (C) 1985,86,87,88,93,94,95,96,97 Free Software Foundation, Inc.
+;; Copyright (C) 1985,86,87,88,93,94,95,96,97,98 Free Software Foundation, Inc.
 
 ;; Author: MORIOKA Tomohiko <morioka@jaist.ac.jp>
 ;; Created: 1997/2/17
-;; Version: $Id$
 ;; Keywords: MIME, multimedia, mail
 
 ;; This file is not part of Emacs yet.
@@ -76,8 +75,8 @@
   (let ((abuf (current-buffer))
 	(buf-name (concat "*View-" (buffer-name) "*"))
 	buf win)
-    (if (and mime-view-buffer
-	     (setq buf (get-buffer mime-view-buffer))
+    (if (and mime-preview-buffer
+	     (setq buf (get-buffer mime-preview-buffer))
 	     )
 	(if (setq win (get-buffer-window buf))
 	    (let ((w (get-buffer-window abuf)))
@@ -126,7 +125,7 @@
   (if (eq major-mode 'mime-view-mode)
       (progn
 	(switch-to-buffer mime-raw-buffer)
-	(bury-buffer mime-view-buffer)
+	(bury-buffer mime-preview-buffer)
 	))
   (let (rmail-enable-mime)
     (rmail-quit)
